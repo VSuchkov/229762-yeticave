@@ -1,7 +1,7 @@
 # Личный проект «YetiCave»
 
 * Студент: [Владимир Сучков](https://up.htmlacademy.ru/php/5/user/229762).
-* Наставник: `Неизвестно`.
+* Наставник: [Николай Пойманов](https://htmlacademy.ru/profile/poymanov).
 
 ---
 
