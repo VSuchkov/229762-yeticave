@@ -37,7 +37,17 @@ $goods = [
      "path" => "img/lot-6.jpg",
     ],   
 ];
+function fsr($num) {
+    $num = ceil($num);
+    if ($num < 1000) {
+        $num = $num;
+    } elseif ($num >= 1000) {
+        $num = substr($num, 0, -3) . " " . substr($num, -3) . "<b class='rub'>р</b>";
+    }
+    return $num;
+};
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -60,25 +70,25 @@ $goods = [
         </form>
         <a class="main-header__add-lot button" href="add-lot.html">Добавить лот</a>
         <nav class="user-menu">
-        <?php
-            if ($is_auth == true) {
-                      echo '<div class="user-menu__image">
-                        <img src="" width="40" height="40" alt="Пользователь">
-                      </div>
-                      <div class="user-menu__logged">
-                        <p></p>
-                      </div>';
-            } else {
-                    echo '<ul class="user-menu__list">
-                        <li class="user-menu__item">
-                          <a href="#">Регистрация</a>
-                        </li>
-                        <li class="user-menu__item">
-                          <a href="#">Вход</a>
-                        </li>
-                      </ul>';
-            };
-        ?>
+            
+        <?php if ($is_auth == true) { ?>
+            <div class="user-menu__image">
+                <img src="" width="40" height="40" alt="Пользователь">
+            </div>
+            <div class="user-menu__logged">
+                <p></p>
+            </div>
+        <?php } else { ?>
+          <ul class="user-menu__list">
+             <li class="user-menu__item">
+               <a href="#">Регистрация</a>
+             </li>
+             <li class="user-menu__item">
+               <a href="#">Вход</a>
+             </li>
+           </ul>
+        <?php } ?>
+        
         </nav>
     </div>
 </header>
@@ -124,7 +134,7 @@ $goods = [
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?php print($goods[$i]["price"]) ?><b class="rub">р</b></span>
+                                <span class="lot__cost"><?php print(fsr($goods[$i]["price"])) ?></span>
                             </div>
                             <div class="lot__timer timer">
                             </div>
