@@ -37,7 +37,17 @@ $goods = [
      "path" => "img/lot-6.jpg",
     ],   
 ];
+function fsr($num) {
+    $num = ceil($num);
+    if ($num < 1000) {
+        $num = $num;
+    } elseif ($num >= 1000) {
+        $num = substr($num, 0, -3) . " " . substr($num, -3) . "<b class='rub'>р</b>";
+    }
+    return $num;
+};
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -124,7 +134,7 @@ $goods = [
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?php print($goods[$i]["price"]) ?><b class="rub">р</b></span>
+                                <span class="lot__cost"><?php print(fsr($goods[$i]["price"])) ?></span>
                             </div>
                             <div class="lot__timer timer">
                             </div>
