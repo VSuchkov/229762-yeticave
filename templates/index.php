@@ -43,6 +43,9 @@
                             <span class="lot__cost"><?php print(fsr(htmlspecialchars($goods[$i]["price"]))) ?></span>
                         </div>
                         <div class="lot__timer timer">
+                            <?php
+                                echo $restOfTime;
+                            ?>
                         </div>
                     </div>
                 </div>
