@@ -1,4 +1,5 @@
 <?php
+
 require_once('./functions.php');
 
 $is_auth = (bool)rand(0, 1);
