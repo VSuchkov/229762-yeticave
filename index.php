@@ -1,5 +1,14 @@
 <?php
+date_default_timezone_set('Europe/Moscow');
+// остаток времени до полуночи:
+$now = strtotime(now);
+$midnight = strtotime( midnight);
+$restOfSeconds = $midnight + 86400 - $now;
+$restOfTimeHours = floor(($restOfSeconds) / 3600);
+$restOfTimeMinutes = floor(($restOfSeconds) % 3600 / 60);
+$restOfTime = $restOfTimeHours . ":" . $restOfTimeMinutes;
 
+// подключаем функции
 require_once('./functions.php');
 
 $is_auth = (bool)rand(0, 1);
@@ -45,7 +54,7 @@ $goods = [
 
 
 // HTML код главной страницы
-    $content = renderTemplate('templates/index.php', ['goods' => $goods]);
+    $content = renderTemplate('templates/index.php', ['goods' => $goods, "restOfTime" => $restOfTime]);
 // окончательный HTML код
     $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
     print($layout_content);
