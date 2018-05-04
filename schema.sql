@@ -16,12 +16,11 @@ CREATE TABLE users (
 );
 
 CREATE TABLE bet (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    userId INT,
-    itemId INT,
-    summ INT,
-    betDate DATE
-
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  userId INT,
+  itemId INT,
+  summ INT,
+  betDate DATE
 );
 
 CREATE TABLE item (
