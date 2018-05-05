@@ -1,5 +1,7 @@
-CREATE DATABASE yeticave;
-DEFAULT CHARACTER SET utf8;
+DROP DATABASE IF EXISTS `yeticave`;
+
+CREATE DATABASE yeticave
+DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
 
 USE yeticave;
@@ -23,7 +25,7 @@ CREATE TABLE bet (
   betDate DATE
 );
 
-CREATE TABLE item (
+CREATE TABLE items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     userId INT,
     name CHAR(128),
