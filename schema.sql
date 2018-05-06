@@ -14,10 +14,9 @@ CREATE TABLE users (
     contact CHAR(255),
     avtarPath CHAR(255),
     registrationDate DATE
-
 );
 
-CREATE TABLE bet (
+CREATE TABLE bets (
   id INT AUTO_INCREMENT PRIMARY KEY,
   userId INT,
   itemId INT,
@@ -28,7 +27,7 @@ CREATE TABLE bet (
 CREATE TABLE items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     userId INT,
-    name CHAR(128),
+    itemName CHAR(128),
     description CHAR(255),
     itemImg CHAR(128),
     categoryId INT,
