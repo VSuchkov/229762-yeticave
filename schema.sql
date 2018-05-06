@@ -14,7 +14,6 @@ CREATE TABLE users (
     contact CHAR(255),
     avtarPath CHAR(255),
     registrationDate DATE
-
 );
 
 CREATE TABLE bets (
