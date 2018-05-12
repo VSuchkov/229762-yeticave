@@ -1,4 +1,8 @@
 <?php
+// подключаем функции
+
+require_once('./functions.php');
+
 date_default_timezone_set('Europe/Moscow');
 // остаток времени до полуночи:
 $now = strtotime(now);
@@ -8,15 +12,51 @@ $restOfTimeHours = floor(($restOfSeconds) / 3600);
 $restOfTimeMinutes = floor(($restOfSeconds) % 3600 / 60);
 $restOfTime = $restOfTimeHours . ":" . $restOfTimeMinutes;
 
-// подключаем функции
-require_once('./functions.php');
+// переменные
+
+$categories = [];
+$goods = [];
+
+// подключаю базу
+
+$con = mysqli_connect("localhost", "root", "", "yeticave");
+// проверка подключения
+if ($con == false) {
+    print("Ошибка подключения: " . mysqli_connect_error());
+} else {
+    print("Cоединение установлено");
+    $sql = 'SELECT * FROM items WHERE dateOfEnd > $now ORDER BY dateOfEnd';
+    $res = mysqli_query($con, $sql);
+    if($res) {
+        $goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    } else {
+        print("переменной для товаров не существует");
+    };
+    $sql = 'SELECT * FROM  categories';
+    $res = mysqli_query($con, $sql);
+    if($res) {
+        $categories = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    } else {
+        print("переменной для категорий не существует");
+    };
+}
+
+
+$sql = 'SELECT * FROM items WHERE dateOfEnd > $now ORDER BY dateOfEnd';
+$res = mysqli_query($con, $sql);
+$goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
+
+
 
 $is_auth = (bool)rand(0, 1);
 
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
+/*
+
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+
 $goods = [
     ["name" => "2014 Rossignol District Snowboard",
         "category" => "Доски и лыжи",
@@ -49,7 +89,7 @@ $goods = [
         "path" => "img/lot-6.jpg",
     ],
 ];
-
+*/
 
 
 
