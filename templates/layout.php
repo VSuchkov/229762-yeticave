@@ -53,7 +53,7 @@
         <ul class="nav__list container">
             <?php for ($i = 0; $i < count($categories); $i++) { ?>
                 <li class="nav__item">
-                    <a href="all-lots.html"> <?php echo($categories[$i]) ?> </a>
+                    <a href="all-lots.html"> <?php echo($categories[$i]["category"]) ?> </a>
                 </li>
             <?php } ?>
         </ul>

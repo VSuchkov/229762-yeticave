@@ -25,14 +25,17 @@ if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
 } else {
     print("Cоединение установлено");
-    $sql = 'SELECT * FROM items WHERE dateOfEnd > $now ORDER BY dateOfEnd';
+    /*
+    $sql = 'SELECT * FROM items WHERE dateOfEnd > ' . $now . ' ORDER BY dateOfEnd';
+    */
+    $sql = 'SELECT * FROM items ORDER BY dateOfEnd';
     $res = mysqli_query($con, $sql);
     if($res) {
         $goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
     } else {
         print("переменной для товаров не существует");
     };
-    $sql = 'SELECT * FROM  categories';
+    $sql = 'SELECT category FROM  categories';
     $res = mysqli_query($con, $sql);
     if($res) {
         $categories = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -41,10 +44,6 @@ if ($con == false) {
     };
 }
 
-
-$sql = 'SELECT * FROM items WHERE dateOfEnd > $now ORDER BY dateOfEnd';
-$res = mysqli_query($con, $sql);
-$goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
 
 
