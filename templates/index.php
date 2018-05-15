@@ -34,7 +34,10 @@
                     <img src=<?php echo("'" . $goods[$i]["itemImg"] . "'") ?> width="350" height="260" alt="Сноуборд">
                 </div>
                 <div class="lot__info">
-                    <span class="lot__category"><?php print(htmlspecialchars($goods[$i]["category"])) ?></span>
+                    <span class="lot__category">
+                        <?php
+                            $category = $categories[$goods[$i]["categoryId"] - 1];
+                        print(htmlspecialchars($category["category"])) ?></span>
                     <h3 class="lot__title"><a class="text-link"
                                               href="lot.html"><?php print(htmlspecialchars($goods[$i]["itemName"])) ?></a></h3>
                     <div class="lot__state">

@@ -18,6 +18,7 @@ $categories = [];
 $goods = [];
 
 // подключаю базу
+$now = date('Y-m-d', time());
 
 $con = mysqli_connect("localhost", "root", "", "yeticave");
 // проверка подключения
@@ -25,10 +26,10 @@ if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
 } else {
     print("Cоединение установлено");
-    /*
+
     $sql = 'SELECT * FROM items WHERE dateOfEnd > ' . $now . ' ORDER BY dateOfEnd';
-    */
-    $sql = 'SELECT * FROM items ORDER BY dateOfEnd';
+
+
     $res = mysqli_query($con, $sql);
     if($res) {
         $goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -93,7 +94,7 @@ $goods = [
 
 
 // HTML код главной страницы
-    $content = renderTemplate('templates/index.php', ['goods' => $goods, "restOfTime" => $restOfTime]);
+    $content = renderTemplate('templates/index.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
 // окончательный HTML код
     $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
     print($layout_content);
