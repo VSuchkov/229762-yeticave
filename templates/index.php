@@ -31,16 +31,19 @@
         <?php for ($i = 0; $i < count($goods); $i++) { ?>
             <li class="lots__item lot">
                 <div class="lot__image">
-                    <img src=<?php echo("'" . $goods[$i]["path"] . "'") ?> width="350" height="260" alt="Сноуборд">
+                    <img src=<?php echo("'" . $goods[$i]["itemImg"] . "'") ?> width="350" height="260" alt="Сноуборд">
                 </div>
                 <div class="lot__info">
-                    <span class="lot__category"><?php print(htmlspecialchars($goods[$i]["category"])) ?></span>
+                    <span class="lot__category">
+                        <?php
+                            $category = $categories[$goods[$i]["categoryId"] - 1];
+                        print(htmlspecialchars($category["category"])) ?></span>
                     <h3 class="lot__title"><a class="text-link"
-                                              href="lot.html"><?php print(htmlspecialchars($goods[$i]["name"])) ?></a></h3>
+                                              href="lot.html"><?php print(htmlspecialchars($goods[$i]["itemName"])) ?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?php print(fsr(htmlspecialchars($goods[$i]["price"]))) ?></span>
+                            <span class="lot__cost"><?php print(fsr(htmlspecialchars($goods[$i]["startPrice"]))) ?></span>
                         </div>
                         <div class="lot__timer timer">
                             <?php
