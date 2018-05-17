@@ -11,6 +11,8 @@ $restOfTime = $restOfTimeHours . ":" . $restOfTimeMinutes;
 // подключаем функции
 require_once('./functions.php');
 
+
+
 $is_auth = (bool)rand(0, 1);
 
 $user_name = 'Константин';
