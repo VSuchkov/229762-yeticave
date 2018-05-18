@@ -109,13 +109,11 @@ if (isset($_GET["item"])) {
     }
     if($res) {
         $item = mysqli_fetch_all($res, MYSQLI_ASSOC);
-        $lotpage = renderTemplate('./templates/lot.php', ["item" => $item, "categories" => $categories]);
-        var_dump($item);
-        print($lotpage);
+        $lotpage = renderTemplate('./templates/lot.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
+        $content = $lotpage;
+        $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+        print($layout_content);
     }
-//    $layout_content = "";
-    //   $layout_content = renderTemplate('templates/lot.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
-    //   print($layout_content);
 } else {
     // HTML код главной страницы
     $content = renderTemplate('templates/index.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
@@ -123,9 +121,15 @@ if (isset($_GET["item"])) {
     $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
     print($layout_content);
 // переходим на страницу товара
-
-
 }
+
+if (isset($_GET["add"])) {
+    var_dump($_GET["add"]);
+    $add = renderTemplate('./templates/add.php', ["categories" => $categories, "nameOfPage" => "", "is_auth" => $is_auth]);
+    $content = $add;
+    $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+    print($layout_content);
+};
 
 
 
