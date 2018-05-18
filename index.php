@@ -3,6 +3,7 @@
 
 require_once('./functions.php');
 
+
 date_default_timezone_set('Europe/Moscow');
 // остаток времени до полуночи:
 $now = strtotime(now);
@@ -21,9 +22,11 @@ $goods = [];
 $now = date('Y-m-d', time());
 
 $con = mysqli_connect("localhost", "root", "", "yeticave");
+
 // проверка подключения
 if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
+    $error = mysqli_error($con);
 } else {
     print("Cоединение установлено");
 
@@ -54,6 +57,9 @@ $is_auth = (bool)rand(0, 1);
 
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
+
+
+
 
 /*
 
@@ -93,13 +99,37 @@ $goods = [
 ];
 */
 
-
-
-// HTML код главной страницы
+if (isset($_GET["item"])) {
+    $itemId = $_GET["item"];
+    if($itemId) {
+        $sql = 'SELECT * FROM items WHERE id = ' . $itemId . '';
+        $res = mysqli_query($con, $sql);
+    } else {
+        http_response_code(404);
+    }
+    if($res) {
+        $item = mysqli_fetch_all($res, MYSQLI_ASSOC);
+        $lotpage = renderTemplate('./templates/lot.php', ["item" => $item, "categories" => $categories]);
+        var_dump($item);
+        print($lotpage);
+    }
+//    $layout_content = "";
+    //   $layout_content = renderTemplate('templates/lot.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
+    //   print($layout_content);
+} else {
+    // HTML код главной страницы
     $content = renderTemplate('templates/index.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
 // окончательный HTML код
     $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
     print($layout_content);
+// переходим на страницу товара
+
+
+}
+
+
+
+
 
 ?>
 

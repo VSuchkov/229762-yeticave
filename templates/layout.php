@@ -45,7 +45,11 @@
 </header>
 
 <main class="container">
-    <?php print($content); ?>
+    <?php
+    if ($content) {
+        print($content);
+    };
+    ?>
 </main>
 
 <footer class="main-footer">
