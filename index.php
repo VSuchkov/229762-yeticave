@@ -100,21 +100,21 @@ $goods = [
 */
 
 if (isset($_GET["item"])) {
-    $itemId = $_GET["item"];
-    if($itemId) {
+    if (isset($goods[$_GET["item"] + 1]["id"])) {
+        $itemId = $_GET["item"];
         $sql = 'SELECT * FROM items WHERE id = ' . $itemId . '';
         $res = mysqli_query($con, $sql);
+        if ($res) {
+            $item = mysqli_fetch_all($res, MYSQLI_ASSOC);
+            $lotpage = renderTemplate('./templates/lot.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
+            $content = $lotpage;
+            $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+            print($layout_content);
+        }
     } else {
         http_response_code(404);
     }
-    if($res) {
-        $item = mysqli_fetch_all($res, MYSQLI_ASSOC);
-        $lotpage = renderTemplate('./templates/lot.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
-        $content = $lotpage;
-        $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
-        print($layout_content);
-    }
-} else {
+}  else {
     // HTML код главной страницы
     $content = renderTemplate('templates/index.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
 // окончательный HTML код
@@ -123,12 +123,13 @@ if (isset($_GET["item"])) {
 // переходим на страницу товара
 }
 
+
 if (isset($_GET["add"])) {
-    var_dump($_GET["add"]);
-    $add = renderTemplate('./templates/add.php', ["categories" => $categories, "nameOfPage" => "", "is_auth" => $is_auth]);
-    $content = $add;
-    $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
-    print($layout_content);
+    $layout_content = "";
+
+    renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+            print($layout_content);
+
 };
 
 
@@ -137,5 +138,5 @@ if (isset($_GET["add"])) {
 
 ?>
 
-</body>
+    </body>
 </html>
