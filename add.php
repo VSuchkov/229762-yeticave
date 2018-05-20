@@ -14,12 +14,6 @@ if ($con == false) {
         print("переменной для категорий не существует");
     };
 }
-/*
-$itemId = $_GET["id"];
-$sql = 'SELECT * FROM items WHERE id = ' . $itemId . '';
-$res = mysqli_query($con, $sql);
-$item = mysqli_fetch_all($res, MYSQLI_ASSOC);
-*/
 
     $lotpage = renderTemplate('./templates/add.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
     if ($lotpage) {
@@ -30,5 +24,25 @@ $item = mysqli_fetch_all($res, MYSQLI_ASSOC);
         http_response_code(404);
         $content = "Лот не найден!";
     }
+
+if ($_SERVER["REQUEST_METHOD"] == POST) {
+    $item = $_POST["item"];
+
+    $fileName = uniqid() . ".jpg";
+    $item["itemImg"] = $fileName;
+    move_uploaded_file($_FILES["jpg_img"]["tmp_name"], '/uploads' . $fileName);
+
+    $sql = 'INSERT INTO items (userId, itemName, description, itemImg, categoryId, startPrice, dateOfEnd, betStep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    $stmt = db_get_prepare_stmt($con, $sql, [$item['name'], $item['category'], $item['description'], $item["itemImg"], $item['startPrice'], $item['betStep'], $item['dateOfEnd']]);
+    $res = mysqli_stmt_execute($stmt);
+
+    if ($res) {
+        $itemId = mysqli_insert_id($con);
+
+        header("Location: lot.php?id=" . $itemId);
+    } else {
+        $content = "Лот не найден!";
+    }
+}
 
 ?>

@@ -13,13 +13,13 @@
 
       <div class="form__item form__item--invalid"> <!-- form__item--invalid -->
         <label for="lot-name">Наименование</label>
-        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" >
+        <input id="lot-name" type="text" name="item[name]" placeholder="Введите наименование лота" >
         <span class="form__error">Введите наименование лота</span>
       </div>
 
       <div class="form__item">
         <label for="category">Категория</label>
-        <select id="category" name="category" >
+        <select id="category" name="item[category]" >
           <option>Выберите категорию</option>
             <?php for ($i = 0; $i < count($categories); $i++) { ?>
                 <option>
@@ -32,7 +32,7 @@
     </div>
     <div class="form__item form__item--wide">
       <label for="message">Описание</label>
-      <textarea id="message" name="message" placeholder="Напишите описание лота" ></textarea>
+      <textarea id="message" name="item[description]" placeholder="Напишите описание лота" ></textarea>
       <span class="form__error">Напишите описание лота</span>
     </div>
     <div class="form__item form__item--file"> <!-- form__item--uploaded -->
@@ -53,17 +53,17 @@
     <div class="form__container-three">
       <div class="form__item form__item--small">
         <label for="lot-rate">Начальная цена</label>
-        <input id="lot-rate" type="number" name="lot-rate" placeholder="0" >
+        <input id="lot-rate" type="number" name="item[startPrice]" placeholder="0" >
         <span class="form__error">Введите начальную цену</span>
       </div>
       <div class="form__item form__item--small">
         <label for="lot-step">Шаг ставки</label>
-        <input id="lot-step" type="number" name="lot-step" placeholder="0" >
+        <input id="lot-step" type="number" name="item[betStep]" placeholder="0" >
         <span class="form__error">Введите шаг ставки</span>
       </div>
       <div class="form__item">
         <label for="lot-date">Дата окончания торгов</label>
-        <input class="form__input-date" id="lot-date" type="date" name="lot-date" >
+        <input class="form__input-date" id="lot-date" type="date" name=item[dateOfEnd]" >
         <span class="form__error">Введите дату завершения торгов</span>
       </div>
     </div>
