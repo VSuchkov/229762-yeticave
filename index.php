@@ -3,6 +3,7 @@
 
 require_once('./functions.php');
 
+
 date_default_timezone_set('Europe/Moscow');
 // остаток времени до полуночи:
 $now = strtotime(now);
@@ -21,9 +22,11 @@ $goods = [];
 $now = date('Y-m-d', time());
 
 $con = mysqli_connect("localhost", "root", "", "yeticave");
+
 // проверка подключения
 if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
+    $error = mysqli_error($con);
 } else {
     print("Cоединение установлено");
 
@@ -48,10 +51,15 @@ if ($con == false) {
 
 
 
+
+
 $is_auth = (bool)rand(0, 1);
 
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
+
+
+
 
 /*
 
@@ -90,16 +98,47 @@ $goods = [
     ],
 ];
 */
-
-
-
-// HTML код главной страницы
+/*
+if (isset($_GET["item"])) {
+    if (isset($goods[$_GET["item"] + 1]["id"])) {
+        $itemId = $_GET["item"];
+        $sql = 'SELECT * FROM items WHERE id = ' . $itemId . '';
+        $res = mysqli_query($con, $sql);
+        if ($res) {
+            $item = mysqli_fetch_all($res, MYSQLI_ASSOC);
+            $lotpage = renderTemplate('./templates/lot.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
+            $content = $lotpage;
+            $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+            print($layout_content);
+        }
+    } else {
+        http_response_code(404);
+    }
+}  else {
+    // HTML код главной страницы
     $content = renderTemplate('templates/index.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
 // окончательный HTML код
     $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
     print($layout_content);
+// переходим на страницу товара
+}
+*/
+
+if (isset($_GET["add"])) {
+
+
+    renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+            print($layout_content);
+
+};
+$content = renderTemplate('templates/index.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
+// окончательный HTML код
+$layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+print($layout_content);
+
+
 
 ?>
 
-</body>
+    </body>
 </html>
