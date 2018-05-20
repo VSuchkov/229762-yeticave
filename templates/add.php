@@ -1,44 +1,31 @@
-
-  <nav class="nav">
+<nav class="nav">
     <ul class="nav__list container">
-      <li class="nav__item">
-        <a href="all-lots.html">Доски и лыжи</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Крепления</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Ботинки</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Одежда</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Инструменты</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Разное</a>
-      </li>
+        <?php for ($i = 0; $i < count($categories); $i++) { ?>
+            <li class="nav__item">
+                <a href="all-lots.html"> <?php echo($categories[$i]["category"]) ?> </a>
+            </li>
+        <?php } ?>
     </ul>
-  </nav>
+</nav>
   <form class="form form--add-lot container form--invalid" action="https://echo.htmlacademy.ru" method="post"> <!-- form--invalid -->
     <h2>Добавление лота</h2>
     <div class="form__container-two">
+
       <div class="form__item form__item--invalid"> <!-- form__item--invalid -->
         <label for="lot-name">Наименование</label>
         <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" >
         <span class="form__error">Введите наименование лота</span>
       </div>
+
       <div class="form__item">
         <label for="category">Категория</label>
         <select id="category" name="category" >
           <option>Выберите категорию</option>
-          <option>Доски и лыжи</option>
-          <option>Крепления</option>
-          <option>Ботинки</option>
-          <option>Одежда</option>
-          <option>Инструменты</option>
-          <option>Разное</option>
+            <?php for ($i = 0; $i < count($categories); $i++) { ?>
+                <option>
+                     <?php echo($categories[$i]["category"]) ?>
+                </option>
+            <?php } ?>
         </select>
         <span class="form__error">Выберите категорию</span>
       </div>
