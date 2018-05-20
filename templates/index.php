@@ -39,7 +39,7 @@
                             $category = $categories[$goods[$i]["categoryId"] - 1];
                         print(htmlspecialchars($category["category"])) ?></span>
                     <h3 class="lot__title"><a class="text-link"
-                                              href="/?item=<?php print($goods[$i]["id"]) ?>"><?php print(htmlspecialchars($goods[$i]["itemName"])) ?></a></h3>
+                                              href="/lot.php?id=<?php print($goods[$i]["id"]) ?>"><?php print(htmlspecialchars($goods[$i]["itemName"])) ?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>

@@ -1,25 +1,10 @@
-
-
   <nav class="nav">
     <ul class="nav__list container">
-      <li class="nav__item">
-        <a href="all-lots.html">Доски и лыжи</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Крепления</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Ботинки</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Одежда</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Инструменты</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Разное</a>
-      </li>
+        <?php for ($i = 0; $i < count($categories); $i++) { ?>
+            <li class="nav__item">
+                <a href="all-lots.html"> <?php echo($categories[$i]["category"]) ?> </a>
+            </li>
+        <?php } ?>
     </ul>
   </nav>
   <section class="lot-item container">
@@ -29,7 +14,7 @@
         <div class="lot-item__image">
           <img src="<?php echo($item[0]["itemImg"]) ?>" width="730" height="548" alt="Сноуборд">
         </div>
-        <p class="lot-item__category">Категория: <span>Доски и лыжи</span></p>
+        <p class="lot-item__category">Категория: <span><?php echo($categories[$item[0]["categoryId"] - 1]["category"]) ?></span></p>
         <p class="lot-item__description">
             <?php echo($item[0]["description"]) ?>
         </p>

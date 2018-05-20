@@ -98,7 +98,7 @@ $goods = [
     ],
 ];
 */
-
+/*
 if (isset($_GET["item"])) {
     if (isset($goods[$_GET["item"] + 1]["id"])) {
         $itemId = $_GET["item"];
@@ -122,17 +122,19 @@ if (isset($_GET["item"])) {
     print($layout_content);
 // переходим на страницу товара
 }
-
+*/
 
 if (isset($_GET["add"])) {
-    $layout_content = "";
+
 
     renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
             print($layout_content);
 
 };
-
-
+$content = renderTemplate('templates/index.php', ['goods' => $goods, "categories" => $categories, "restOfTime" => $restOfTime]);
+// окончательный HTML код
+$layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+print($layout_content);
 
 
 
