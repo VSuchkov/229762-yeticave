@@ -1,3 +1,4 @@
+<?php var_dump($errors)?>
 <nav class="nav">
     <ul class="nav__list container">
         <?php for ($i = 0; $i < count($categories); $i++) { ?>
@@ -7,21 +8,21 @@
         <?php } ?>
     </ul>
 </nav>
-  <form class="form form--add-lot container form--invalid" action="" method="post" enctype="multipart/form-data">
+  <form class="form form--add-lot container form--invalid" action="https://echo.htmlacademy.ru" method="post" enctype="multipart/form-data">
       <!-- form--invalid -->
     <h2>Добавление лота</h2>
     <div class="form__container-two">
 
-      <div class="form__item <?php if (isset($errors['title'])) { print('form__item--invalid');} ?>"> <!-- form__item--invalid -->
+      <div class="form__item <?php if ($errors["name"]) { print('form__item--invalid');} ?>"> <!-- form__item--invalid -->
         <label for="lot-name">Наименование</label>
-        <input id="lot-name" type="text" name="item[name]" placeholder="Введите наименование лота" >
-          <?php if (isset($errors['title'])) { print('<span class="form__error">Введите наименование лота</span>');} ?>
+        <input id="lot-name" type="text" name="name" placeholder="Введите наименование лота" >
+          <?php if ($errors["name"]) { print('<span class="form__error">Введите наименование лота</span>');} ?>
 
       </div>
 
       <div class="form__item">
         <label for="category">Категория</label>
-        <select id="category" name="item[category]" >
+        <select id="category" name="category" >
           <option>Выберите категорию</option>
             <?php for ($i = 0; $i < count($categories); $i++) { ?>
                 <option>
@@ -29,13 +30,15 @@
                 </option>
             <?php } ?>
         </select>
-          <?php if (isset($errors['category'])) { print('<span class="form__error">Выберите категорию</span>');} ?>
+          <?php if ($errors["category"]) {
+              print('<span class="form__error">Выберите категорию</span>'); }
+          ?>
       </div>
     </div>
     <div class="form__item form__item--wide">
       <label for="message">Описание</label>
-      <textarea id="message" name="item[description]" placeholder="Напишите описание лота" ></textarea>
-        <?php if (isset($errors['description'])) { print('<span class="form__error">Напишите описание лота</span>');} ?>
+      <textarea id="message" name="description" placeholder="Напишите описание лота" ></textarea>
+        <?php if ($errors["description"]) { print('<span class="form__error">Напишите описание лота</span>');} ?>
     </div>
     <div class="form__item form__item--file"> <!-- form__item--uploaded -->
       <label>Изображение</label>
@@ -51,24 +54,27 @@
           <span>+ Добавить</span>
         </label>
       </div>
+        <?php if ($errors["file"]) { print('<span class="form__error">' . $errors["file"] . '</span>');} ?>
     </div>
     <div class="form__container-three">
       <div class="form__item form__item--small">
         <label for="lot-rate">Начальная цена</label>
-        <input id="lot-rate" type="number" name="item[startPrice]" placeholder="0" >
-          <?php if (isset($errors['startPrice'])) { print('<span class="form__error">Введите начальную цену</span>');} ?>
+        <input id="lot-rate"  type="number" name="startPrice" placeholder="0" >
+          <?php if ($errors["startPrice"] == 1) { print('<span class="form__error">Введите начальную цену</span>');} ?>
+          <?php if ($errors["startPrice"] == 2) { print('<span class="form__error">Введите число</span>');} ?>
 
       </div>
       <div class="form__item form__item--small">
         <label for="lot-step">Шаг ставки</label>
-        <input id="lot-step" type="number" name="item[betStep]" placeholder="0" >
-          <?php if (isset($errors['betStep'])) { print('<span class="form__error">Введите шаг ставки</span>');} ?>
+        <input id="lot-step" type="number" name="betStep" placeholder="0" >
+          <?php if ($errors["betStep"] == 1) { print('<span class="form__error">Введите шаг ставки</span>');} ?>
+          <?php if ($errors["betStep"] == 2) { print('<span class="form__error">Введите число</span>');} ?>
 
       </div>
       <div class="form__item">
         <label for="lot-date">Дата окончания торгов</label>
-        <input class="form__input-date" id="lot-date" type="date" name=item[dateOfEnd]" >
-          <?php if (isset($errors['dateOfEnd'])) { print('<span class="form__error">Введите дату завершения торгов</span>');} ?>
+        <input class="form__input-date" id="lot-date" type="date" name="dateOfEnd" >
+          <?php if ($errors["dateOfEnd"]) { print('<span class="form__error">Введите дату завершения торгов</span>');} ?>
 
       </div>
     </div>

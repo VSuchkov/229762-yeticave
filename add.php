@@ -17,43 +17,51 @@ if ($con == false) {
 
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+
     $item = $_POST;
-    var_dump($item);
     $required = ["title", "category", "desc", "startPrice", "betStep", "dateOfEnd"];
     $dict = [
-        "title" => "Наименование",
+        "name" => "Наименование",
         "category" => "Категория",
-        "desc" => "Описание",
+        "description" => "Описание",
         "startPrice" => "Стартовая цена",
         "betStep" => "Шаг ставки",
         "dateOfEnd" => "Дата окончания торгов"
     ];
     $errors = [];
 
-    foreach ($item as $key) {
-        if (!$item[$key]) {
-            $errors += $key;
+    foreach ($item as $key => $val) {
+        if ((!$item[$key]) or ($item[$key] == 'Выберите категорию')) {
+            $errors[$key] = 1;
         }
     }
+    if (!is_numeric($item["startPrice"])) {
+        $errors["startPrice"] = 2;
+    }
+    if (!is_numeric($item["betStep"])) {
+        $errors["betStep"] = 2;
+    }
+
+
     var_dump($errors);
-    if (isset($_FILES['itemImg']['name'])) {
+
+
+    if (is_uploaded_file($_FILES['itemImg']['tmp_name'])) {
         $tmp_name = $_FILES['itemImg']['tmp_name'];
-        $path = $_FILES['itemImg']['name'];
-
-
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $file_type = finfo_file($finfo, $tmp_name);
-        if ($file_type !== "image/jpg") {
-            $errors['file'] = 'Загрузите картинку в формате jpg';
+        $path = uniqid() . '.jpg';
+        $file_type = mime_content_type($tmp_name);
+        if ($file_type == "image/jpg") {
+            $path = uniqid() . '.jpg';
+            $item['itemImg'] = 'img/' . $path;
+            move_uploaded_file($tmp_name, 'img/' . $path);
         } else {
-            move_uploaded_file($tmp_name, 'uploads/' . $path);
-            $jpg['path'] = $path;
+            $errors['file'] = 'Загрузите картинку в формате jpg';
         }
     } else {
         $errors['file'] = 'Вы не загрузили файл';
     }
     if (count($errors)) {
-        $lotpage = renderTemplate('./templates/add.php', ['dict' => $dict, "item" => $item, "categories" => $categories, "is_auth" => $is_auth, 'errors' => $errors]);
+        $content = renderTemplate('./templates/add.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth, 'errors' => $errors]);
 
     } else {
         $item = $_POST["item"];
@@ -73,22 +81,19 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         } else {
             $content = "Лот не найден!";
         }
-        $lotpage = renderTemplate('./templates/index.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
+        $content = renderTemplate('./templates/index.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
     }
-    $content = $lotpage;
     $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
     print ($layout_content);
-} else {
-    $lotpage = renderTemplate('./templates/add.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
-    if ($lotpage) {
-        $content = $lotpage;
-        $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
-        print($layout_content);
     } else {
-        http_response_code(404);
-        $content = "Лот не найден!";
-    }
+        $lotpage = renderTemplate('./templates/add.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth]);
+        if ($lotpage) {
+            $content = $lotpage;
+            $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
+            print($layout_content);
+        } else {
+            http_response_code(404);
+            $content = "Лот не найден!";
+        }
 }
-
-
 ?>
