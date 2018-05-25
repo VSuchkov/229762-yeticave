@@ -43,14 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     }
 
 
-    var_dump($errors);
-
 
     if (is_uploaded_file($_FILES['itemImg']['tmp_name'])) {
         $tmp_name = $_FILES['itemImg']['tmp_name'];
         $path = uniqid() . '.jpg';
         $file_type = mime_content_type($tmp_name);
-        if ($file_type == "image/jpg") {
+        if ($file_type == "image/jpg" OR $file_type == "image/jpeg") {
             $path = uniqid() . '.jpg';
             $item['itemImg'] = 'img/' . $path;
             move_uploaded_file($tmp_name, 'img/' . $path);

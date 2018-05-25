@@ -1,4 +1,3 @@
-<?php var_dump($errors)?>
 <nav class="nav">
     <ul class="nav__list container">
         <?php for ($i = 0; $i < count($categories); $i++) { ?>
@@ -8,14 +7,14 @@
         <?php } ?>
     </ul>
 </nav>
-  <form class="form form--add-lot container form--invalid" action="https://echo.htmlacademy.ru" method="post" enctype="multipart/form-data">
+  <form class="form form--add-lot container form--invalid" action="add.php" method="post" enctype="multipart/form-data">
       <!-- form--invalid -->
     <h2>Добавление лота</h2>
     <div class="form__container-two">
 
       <div class="form__item <?php if ($errors["name"]) { print('form__item--invalid');} ?>"> <!-- form__item--invalid -->
         <label for="lot-name">Наименование</label>
-        <input id="lot-name" type="text" name="name" placeholder="Введите наименование лота" >
+        <input id="lot-name" type="text" name="name" placeholder="Введите наименование лота" value = "<?php if (isset($item['name'])) {print($item['name']);} ?>">
           <?php if ($errors["name"]) { print('<span class="form__error">Введите наименование лота</span>');} ?>
 
       </div>
@@ -37,7 +36,9 @@
     </div>
     <div class="form__item form__item--wide">
       <label for="message">Описание</label>
-      <textarea id="message" name="description" placeholder="Напишите описание лота" ></textarea>
+      <textarea id="message" name="description" placeholder="Напишите описание лота">
+          <?php if (isset($item['description'])) {print($item['description']);} ?>
+      </textarea>
         <?php if ($errors["description"]) { print('<span class="form__error">Напишите описание лота</span>');} ?>
     </div>
     <div class="form__item form__item--file"> <!-- form__item--uploaded -->
@@ -59,21 +60,21 @@
     <div class="form__container-three">
       <div class="form__item form__item--small">
         <label for="lot-rate">Начальная цена</label>
-        <input id="lot-rate"  type="number" name="startPrice" placeholder="0" >
+        <input id="lot-rate"  type="number" name="startPrice" placeholder="0" value = "<?php if (isset($item['startPrice'])) {print($item['startPrice']);} ?>">
           <?php if ($errors["startPrice"] == 1) { print('<span class="form__error">Введите начальную цену</span>');} ?>
           <?php if ($errors["startPrice"] == 2) { print('<span class="form__error">Введите число</span>');} ?>
 
       </div>
       <div class="form__item form__item--small">
         <label for="lot-step">Шаг ставки</label>
-        <input id="lot-step" type="number" name="betStep" placeholder="0" >
+        <input id="lot-step" type="number" name="betStep" placeholder="0" value = "<?php if (isset($item['betStep'])) {print($item['betStep']);} ?>">
           <?php if ($errors["betStep"] == 1) { print('<span class="form__error">Введите шаг ставки</span>');} ?>
           <?php if ($errors["betStep"] == 2) { print('<span class="form__error">Введите число</span>');} ?>
 
       </div>
       <div class="form__item">
         <label for="lot-date">Дата окончания торгов</label>
-        <input class="form__input-date" id="lot-date" type="date" name="dateOfEnd" >
+        <input class="form__input-date" id="lot-date" type="date" name="dateOfEnd" value = "<?php if (isset($item['dateOfEnd'])) {print($item['dateOfEnd']);} ?>">
           <?php if ($errors["dateOfEnd"]) { print('<span class="form__error">Введите дату завершения торгов</span>');} ?>
 
       </div>
