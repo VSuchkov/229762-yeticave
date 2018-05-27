@@ -28,4 +28,5 @@
     }
     $layout_content = renderTemplate('templates/layout.php', ["content" => $content, "categories" => $categories, "nameOfPage" => "Главная", "is_auth" => $is_auth]);
     print($layout_content);
+
 ?>
