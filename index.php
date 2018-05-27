@@ -6,13 +6,14 @@ require_once('./functions.php');
 
 date_default_timezone_set('Europe/Moscow');
 // остаток времени до полуночи:
-$now = strtotime(now);
+/*
+$now = NOW();
 $midnight = strtotime( midnight);
 $restOfSeconds = $midnight + 86400 - $now;
 $restOfTimeHours = floor(($restOfSeconds) / 3600);
 $restOfTimeMinutes = floor(($restOfSeconds) % 3600 / 60);
 $restOfTime = $restOfTimeHours . ":" . $restOfTimeMinutes;
-
+*/
 // переменные
 
 $categories = [];

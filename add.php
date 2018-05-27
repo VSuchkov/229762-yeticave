@@ -59,15 +59,17 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         $errors['file'] = 'Вы не загрузили файл';
     }
     if (count($errors)) {
-        $content = renderTemplate('./templates/add.php', ["item" => $item, "categories" => $categories, "is_auth" => $is_auth, 'errors' => $errors]);
+        $content = renderTemplate('./templates/add.php', [
+            "item" => $item,
+            "categories" => $categories,
+            "is_auth" => $is_auth,
+            'errors' => $errors]);
 
     } else {
         $item = $_POST["item"];
-
         $fileName = uniqid() . ".jpg";
         $item["itemImg"] = $fileName;
         move_uploaded_file($_FILES["jpg_img"]["tmp_name"], '/uploads' . $fileName);
-
         $sql = 'INSERT INTO items (userId, itemName, description, itemImg, categoryId, startPrice, dateOfEnd, betStep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         $stmt = db_get_prepare_stmt($con, $sql, [$item['name'], $item['category'], $item['description'], $item["itemImg"], $item['startPrice'], $item['betStep'], $item['dateOfEnd']]);
         $res = mysqli_stmt_execute($stmt);
